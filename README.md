@@ -179,18 +179,58 @@ python -m pytest tests/ -v
 
 ## 🔑 Environment Variables (`backend/.env`)
 
-| Variable | Description |
-|---|---|
-| `SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_ANON_KEY` | Public client key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Administrative service key |
-| `GROQ_API_KEY` | Groq API key for Llama/Qwen reasoning and Whisper |
-| `GEMINI_API_KEY` | Google Gemini API key for visual evidence analysis |
-| `RESEND_API_KEY` | Resend API key for automated complaint email dispatch |
-| `EMAIL_FROM` | Verified sender email (`The City Around You <onboarding@resend.dev>`) |
-| `FRONTEND_URL` | Frontend URL for CORS (`http://localhost:5173`) |
+| Variable | Description | Example |
+|---|---|---|
+| `SUPABASE_URL` | Supabase project URL | `https://raqcvzaxufmymrfltgrw.supabase.co` |
+| `SUPABASE_ANON_KEY` | Public client key | `sb_publishable_...` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Administrative service key | `sb_publishable_...` |
+| `GROQ_API_KEY` | Groq API key for reasoning and Whisper | `gsk_...` |
+| `GEMINI_API_KEY` | Google Gemini API key for visual inspection | `AQ.Ab8RN...` |
+| `SMTP_HOST` | Gmail SMTP server host | `smtp.gmail.com` |
+| `SMTP_PORT` | Gmail SMTP server port | `587` |
+| `SMTP_USERNAME` | Gmail account address | `shahmanjamal9@gmail.com` |
+| `SMTP_PASSWORD` | 16-character Google App Password | `foyhkjgpdsuksjgx` |
+| `EMAIL_FROM` | Sender email address | `shahmanjamal9@gmail.com` |
+| `EMAIL_FROM_NAME` | Sender display name | `cwa_chip` |
+| `SMTP_USE_TLS` | Enable TLS encryption | `true` |
+| `FRONTEND_URL` | Frontend URL for CORS | `https://cwa-ship-2026.vercel.app` |
 
 ---
+
+## 🌐 Full Cloud Deployment Guide
+
+### 1. Deploy Database on Supabase
+1. Open your Supabase Dashboard: [https://supabase.com/dashboard](https://supabase.com/dashboard).
+2. Go to **SQL Editor** -> **New Query**.
+3. Copy the entire contents of [`supabase_complete_schema.sql`](./supabase_complete_schema.sql) and click **Run**.
+4. All tables (`authorities`, `complaints`, `complaint_events`, `issue_categories`), RLS policies, and seed data will be created instantly.
+
+### 2. Deploy Backend on Render (Free Web Service)
+1. Go to [https://render.com](https://render.com) and click **New +** -> **Web Service**.
+2. Connect your GitHub repository: `https://github.com/fahad15fede/CWA-Ship-2026.git`.
+3. Configure service settings:
+   - **Name**: `cwa-ship-backend`
+   - **Root Directory**: `backend`
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. Under **Environment Variables**, add the variables from your `backend/.env`:
+   - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+   - `GROQ_API_KEY`, `GEMINI_API_KEY`
+   - `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`
+   - `SMTP_USERNAME=shahmanjamal9@gmail.com`, `SMTP_PASSWORD=foyhkjgpdsuksjgx`
+   - `EMAIL_FROM=shahmanjamal9@gmail.com`, `EMAIL_FROM_NAME=cwa_chip`, `SMTP_USE_TLS=true`
+5. Click **Create Web Service**. Once deployed, Render will provide your public backend URL, e.g. `https://cwa-ship-backend.onrender.com`.
+
+### 3. Deploy Frontend on Vercel
+1. Go to [https://vercel.com](https://vercel.com) and click **Add New...** -> **Project**.
+2. Import your GitHub repository: `https://github.com/fahad15fede/CWA-Ship-2026.git`.
+3. In project settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: Click "Edit" and select `frontend` (or leave as root; `vercel.json` will build automatically)
+4. Under **Environment Variables**, add:
+   - `VITE_API_BASE_URL` = `https://cwa-ship-backend.onrender.com` (Your Render backend URL)
+5. Click **Deploy**. Vercel will build and assign your live production URL (e.g. `https://cwa-ship-2026.vercel.app`)!
 
 ## ⏱️ 60-Second Hero Demo Flow
 
