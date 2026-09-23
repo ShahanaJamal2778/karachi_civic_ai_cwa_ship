@@ -1,3 +1,6 @@
+Live url: https://karachicivicsai.vercel.app/
+demo_video: https://youtu.be/X_qCuAYFpIo
+
 # Karachi Civic AI — "The City Around You"
 
 > *"Report a problem. We'll find who can fix it."*
