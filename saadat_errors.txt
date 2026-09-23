@@ -1,0 +1,584 @@
+in this whole CRM there are somany figures some needs to be entered by user and some are derived figures from user entries and backend calculations but here are some figures which can not be derived they needs to be enterbthere is a huge blunder mistake in CRM on  tecnician panle .admin adcan add ,delete and update technician details username and password then that tecnician will use that username and password to login into crm.and that partical username of technician on login can view his assigned jobs only not all jobs .he can view only those jobs which are assigned by admin all jobs are not visible to him and he can update only those assigned jobs status,parts used ,cashed receive .     if technician updates job status to completed then admin dasboard get notification to verfiy that job completion status .if admin verifies that true completed job tthen only send whats app template feedback  message to that particular client whats app number.                                    ,sihttp://127.0.0.1:8000/technician/dashboard                      Exception trace
+Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(integer, string, string, integer)
+resources\views\technician\dashboard.blade.php:127
+
+122                <div class="text-xl font-extrabold text-teal-400 mt-1">Rs {{ number_format($stats['monthly_service_revenue']) }}</div>
+123                <div class="text-[10px] text-slate-500">{{ $stats['closed_this_month'] }} jobs completed</div>
+124            </div>
+125            <div class="bg-[#111c26] border border-[#1a2836] rounded-xl p-4">
+126                <div class="text-slate-400 text-[11px]">Rating & Performance</div>
+127                <div class="text-xl font-extrabold text-amber-400 mt-1">{{ $stats['avg_rating'] }} ⭐</div>
+128                <div class="text-[10px] text-slate-500">89.5% completion rate</div>
+129            </div>
+130        </div>
+131
+132        <!-- Active Jobs List -->
+133        <div>
+134            <div class="flex items-center justify-between mb-3">
+135                <div class="text-xs font-bold text-slate-300 uppercase tracking-wider">My Active Jobs</div>
+136                <a href="{{ route('technician.jobs') }}" class="text-xs text-teal-400 hover:underline">View All →</a>
+137            </div>
+138            <div class="space-y-3">                     error2:
+139http://127.0.0.1:8000/admin/reports/technicians       InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [admin.reports.technicians] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/reports/technicians
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\ReportController.php:82
+
+77
+78    public function technicians()
+79    {
+80        $technicians = PreviewDataService::getTechnicianPerformanceReport();
+81
+82        return view('admin.reports.technicians', [
+83            'title' => 'Technician Performance Audit - Sadaat Electronics',
+84            'headerTitle' => 'Technicians Performance',
+85            'headerSubtitle' => 'Field engineer job completions, parts usage, revenue & net profit',
+86            'technicians' => $technicians,
+87        ]);
+88    }
+89}
+90
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries         Service Invoices
+Maintenance billing, parts charges & payment receipts
+September 2026 August 2026 July 2026 Last 3 Months
+[Admin: Kashif](http://127.0.0.1:8000/auth/switch-role/technician)
+Total Invoiced (Sep 2026)
+Rs 485,000
+Labour + parts charges
+Payments Received
+Rs 462,000
+Cash verified & posted
+Service Outstanding
+Rs 23,000
+Uncollected customer dues
+Invoice #
+Date
+Complaint
+Customer
+Technician
+Visiting
+Labour
+Parts
+Total Amount
+Status
+Actions
+[SV-0344](http://127.0.0.1:8000/admin/service-invoices/SV-0344)
+06 Sep 2026
+CMP-0360
+Faisal Mehmood0312-5874410
+Ali Raza
+Rs 1,500
+Rs 4,500
+Rs 4,800
+Rs 10,800
+Paid
+[View & Print →](http://127.0.0.1:8000/admin/service-invoices/SV-0344)
+[SV-0342](http://127.0.0.1:8000/admin/service-invoices/SV-0342)
+06 Sep 2026
+CMP-0359
+Rabia Noor0300-4455667
+Zeeshan Akhtar
+Rs 1,200
+Rs 2,500
+Rs 1,300
+Rs 5,000
+Paid no add invoice option as well . not just view print it should provide all crud operations 
+[View & Print →](http://127.0.0.1:8000/admin/service-invoices/SV-0342)
+[SV-0340](http://127.0.0.1:8000/admin/service-invoices/SV-0340)
+05 Sep 2026
+CMP-0357
+Sana Tariq0345-5098123
+Ahmed Khan
+Rs 1,200
+Rs 3,000
+Rs 2,600
+Rs 6,800
+Paid
+[View & Print →](http://127.0.0.1:8000/admin/service-invoices/SV-0340)      http://127.0.0.1:8000/admin/ocr why this tab swittched the admin to technician tabs .                                  same issue in this route http://127.0.0.1:8000/admin/sales                          error in route http://127.0.0.1:8000/admin/print/sales-slip/SI-0345      LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/print/sales-slip/SI-0345
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\PrintController.php:41
+
+36    {
+37        $sales = PreviewDataService::getSales();
+38        $sale = collect($sales)->firstWhere('id', $id) ?? $sales[0];
+39        $settings = PreviewDataService::getSettings();
+40
+41        return view('print.sales-slip', [
+42            'sale' => $sale,
+43            'settings' => $settings,
+44        ]);
+45    }
+46
+47    public function wholesaleInvoice(string $id)
+48    {
+49        $invoices = PreviewDataService::getWholesaleInvoices();
+50        $invoice = collect($invoices)->firstWhere('id', $id) ?? $invoices[0];
+51        $settings = PreviewDataService::getSettings();
+52
+53
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries
+// No queries executed
+Headers
+host
+127.0.0.1:8000
+connection
+keep-alive
+sec-ch-ua
+"Chromium";v="152", "Not?A_Brand";v="24", "Google Chrome";v="152"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+upgrade-insecure-requests
+1
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+accept
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+sec-fetch-site
+same-origin
+sec-fetch-mode
+navigate
+sec-fetch-user
+?1
+sec-fetch-dest
+document
+referer
+http://127.0.0.1:8000/admin/sales/SI-0345
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+XSRF-TOKEN=eyJpdiI6IkFTVHBOdG1WRmUzTXloUmZQNVJGdmc9PSIsInZhbHVlIjoibFZ1R1NIZ2s4dmlZRmVsSEs4bjdBY0szMzNCbjB4YU45Q1FLTE1qUWhpalFIQlhxd2EvQURXL0YrTHhIK21PL2dUM1ZVd0xabExxQmUyYU5BRFpCVlBrYmRmMjNYTzVPcWZocUpkTW9oTVlRRWRHVjBlOEJad3g2V1hJaExXL0MiLCJtYWMiOiJkZTMyZjhmZDY1ZWVjYTA3OTdkZjg5MzFkNzA5MzNhNTBhMGIwNjY0MzMyOWE2ZGU2NDZjMzZkYjY4YTA0YzQzIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6Inlha0ZXaHNVdFcxUythZWZaY0Y3NlE9PSIsInZhbHVlIjoicVZLSERsa3BON0s3cElIbVNMeVBHUEljNjZUdjU1Y3ZvV1phdlM1RXhzVzhPcVIxV0ZjQjUzTjJQR295WmJaUitVS1ZyUmdTdG0wOGRFSkFpVE01MGRuWEJ5Y1hwMnJXR3A4YmtxLytJMTFmc01UbnB0d2hyWGpGRm5ZRFd1eWMiLCJtYWMiOiI2N2QxMzc0MzIyMGEwZWViY2FiNWI3ZmE2YmRlNmJmNzcyYWVjZjVjZThiMTY2YjI0NmFiYmFmOWUyMTU4NThkIiwidGFnIjoiIn0%3D
+Body           retail invoice edit option is missing             error http://127.0.0.1:8000/admin/ak-traders/create  Internal Server Error
+
+Copy as Markdown
+InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [admin.ak-traders.create] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/ak-traders/create
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\AKTradersController.php:77
+
+72    public function create()
+73    {
+74        $customers = array_filter(PreviewDataService::getCustomers(), fn($c) => in_array($c['type'], ['Wholesale', 'Corporate']));
+75        $products = PreviewDataService::getProductsList();
+76
+77        return view('admin.ak-traders.create', [
+78            'title' => 'New Wholesale Invoice - A.K. Traders',
+79            'headerTitle' => 'New Wholesale Invoice',
+80            'headerSubtitle' => 'Generate dealer commercial tax invoice & delivery order',
+81            'customers' => $customers,
+82            'products' => $products,
+83        ]);
+84    }
+85
+86    public function store(Request $request)
+87    {
+88        return redirect()->route('admin.ak-traders')->with('success', 'Wholesale      add product,delete,edit ,invoice created successfully.');
+89
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries
+// No queries executed
+Headers
+host
+127.0.0.1:8000
+connection
+keep-alive
+upgrade-insecure-requests                remove all uunecessary quick actions from whole CRM      Quick Actions
+[+ New Order for this Dealer](http://127.0.0.1:8000/admin/ak-traders/orders/create)[💬 WhatsApp](https://wa.me/92321-9988776)         error :http://127.0.0.1:8000/admin/ak-traders/create        http://127.0.0.1:8000/admin/ak-traders/create                            i need crusd operations for all ak traders operations Wholesale Orders
+Dealers / Accounts
+Payments
+Date	Dealer	Order Ref	Method	Amount
+02 Sep 2026	Al-Madina Electronics	AK-0412	Bank Transfer	Rs 138,000
+28 Aug 2026	Super Star Appliances	AK-0411	Cash	Rs 294,000 again same issue sidebar tab switch to technician from admin no payment add method  i want my all tables in CRM editable except the primary kwys of table .           apply search engine filter are not working  on this route http://127.0.0.1:8000/admin/products categories and stock filters. also  i want all crud functionalities on Product	SKU	Category	Cost	Sale Price	Stock	Status	
+Gree 1.5 Ton Pular Inverter Split AC
+Gree
+GREE-18PITH	Air Conditioner	Rs 148,000	Rs 165,000	12 Pcs	In Stock	
+
+Generaltec 1.5 Ton T3 Heavy Duty Split AC
+Generaltec
+GENTEC-18SPL	Air Conditioner	Rs 135,000	Rs 152,000	8 Pcs	In Stock	
+
+Haier Digital Inverter Refrigerator Glass Door
+Haier
+HAIER-438	Refrigerator	Rs 95,000	Rs 108,000	9 Pcs	In Stock	
+
+Tecnogas 90cm Curved Glass Touch Hood
+Tecnogas
+TECNOGAS-HD90	Hood	Rs 34,000	Rs 45,000	6 Pcs	In Stock	
+
+Logik Built-in Electric Convection Oven 65L
+Logik
+LOGIK-OV65	Built-in Oven	Rs 72,000	Rs 92,000	4 Pcs	In Stock	
+
+Super Asia Automatic Top Load Washer 9.5KG
+Super Asia
+SUPASIA-240	Washing Machine	Rs 52,000	Rs 62,000	14 Pcs	In Stock	          remove all  search bars and filters from admin/products route Products & Inventory
+Manage products, spare parts and stock levels
+September 2026 ⬍ August 2026 July 2026 Last 3 Months Custom Date Range...
+[Tech: Ali Raza](http://127.0.0.1:8000/auth/switch-role/admin)           route http://127.0.0.1:8000/admin/inventory and route http://127.0.0.1:8000/admin/products   dasboards pages seems similar remove if unneccessary showing repeated info in tables cols  or merge them both into one tab with all required KPI cards all tables along with add,delete,update options on table data September 2026 ⬍ August 2026 July 2026 Last 3 Months Custom Date Range...
+[Tech: Ali](http://127.0.0.1:8000/auth/switch-role/admin)                      error        http://127.0.0.1:8000/admin/print/sales-slip/SI-0345       Internal Server Error
+
+Copy as Markdown
+InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [print.sales-slip] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/print/sales-slip/SI-0345
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\PrintController.php:41
+
+36    {
+37        $sales = PreviewDataService::getSales();
+38        $sale = collect($sales)->firstWhere('id', $id) ?? $sales[0];
+39        $settings = PreviewDataService::getSettings();
+40
+41        return view('print.sales-slip', [
+42            'sale' => $sale,
+43            'settings' => $settings,
+44        ]);
+45    }
+46
+47    public function wholesaleInvoice(string $id)
+48    {
+49        $invoices = PreviewDataService::getWholesaleInvoices();
+50        $invoice = collect($invoices)->firstWhere('id', $id) ?? $invoices[0];
+51        $settings = PreviewDataService::getSettings();
+52
+53
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries
+// No queries executed
+Headers
+host
+127.0.0.1:8000
+connection
+keep-alive
+sec-ch-ua
+"Chromium";v="152", "Not?A_Brand";v="24", "Google Chrome";v="152"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+upgrade-insecure-requests
+1
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+accept
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+sec-fetch-site
+same-origin
+sec-fetch-mode
+navigate
+sec-fetch-user
+?1
+sec-fetch-dest
+document
+referer
+http://127.0.0.1:8000/admin/sales/SI-0345
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+XSRF-TOKEN=eyJpdiI6ImJMcy9        errors http://127.0.0.1:8000/admin/print/complaint-slip/CMP-0369                Internal Server Error
+
+Copy as Markdown
+InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [print.complaint-slip] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/print/complaint-slip/CMP-0369
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\PrintController.php:17
+
+12    {
+13        $complaints = PreviewDataService::getComplaints();
+14        $complaint = collect($complaints)->firstWhere('id', $id) ?? $complaints[0];
+15        $settings = PreviewDataService::getSettings();
+16
+17        return view('print.complaint-slip', [
+18            'complaint' => $complaint,
+19            'settings' => $settings,
+20            'isBlank' => false,
+21        ]);
+22    }
+23
+24    public function blankComplaintSlip()
+25    {
+26        $settings = PreviewDataService::getSettings();
+27
+28        return view('print.complaint-slip', [
+29
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame                                             a huge logical issue in system click on new sale for wholsale and corporate            http://127.0.0.1:8000/admin/ak-traders/orders/AK-0412         Internal Server Error
+
+Copy as Markdown
+InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [admin.ak-traders.show] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/ak-traders/orders/AK-0412
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\AKTradersController.php:97
+
+92    {
+93        $invoices = PreviewDataService::getWholesaleInvoices();
+94        $invoice = collect($invoices)->firstWhere('id', $id) ?? $invoices[0];
+95        $settings = PreviewDataService::getSettings();
+96
+97        return view('admin.ak-traders.show', [
+98            'title' => 'A.K. Traders Invoice ' . $invoice['id'],
+99            'headerTitle' => 'A.K. Traders Wholesale Invoice',
+100            'headerSubtitle' => 'Hard-copy styled dealer invoice and delivery challan',
+101            'invoice' => $invoice,
+102            'settings' => $settings,
+103        ]);
+104    }
+105
+106    // Dealer routes
+107    public function dealerCreate()
+108    {
+109
+App\Http\Controllers\Admin\AKTradersController->show(string)
+app\Http\Controllers\Admin\AKTradersController.php:137
+
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries
+// No queries executed        there is a logical blunder here if customer is of retail or corporate then add new sale move to http://127.0.0.1:8000/admin/sales        but if customer is off  whole sale move to ak traders whole sale new order at route but with only whole sale client option http://127.0.0.1:8000/admin/ak-traders/create .      Internal Server Error
+
+Copy as Markdown
+InvalidArgumentException
+vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:138
+View [admin.ak-traders.create] not found.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/ak-traders/create
+
+Exception trace
+4 vendor frames
+
+view(string, array)
+app\Http\Controllers\Admin\AKTradersController.php:77
+
+72    public function create()
+73    {
+74        $customers = array_filter(PreviewDataService::getCustomers(), fn($c) => in_array($c['type'], ['Wholesale', 'Corporate']));
+75        $products = PreviewDataService::getProductsList();
+76
+77        return view('admin.ak-traders.create', [
+78            'title' => 'New Wholesale Invoice - A.K. Traders',
+79            'headerTitle' => 'New Wholesale Invoice',
+80            'headerSubtitle' => 'Generate dealer commercial tax invoice & delivery order',
+81            'customers' => $customers,
+82            'products' => $products,
+83        ]);
+84    }
+85
+86    public function store(Request $request)
+87    {
+88        return redirect()->route('admin.ak-traders')->with('success', 'Wholesale invoice created successfully.');
+89
+47 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries
+// No queries executed
+Headers
+host
+127.0.0.1:8000
+connection
+keep-alive
+upgrade-insecure-requests
+1
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+accept
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+sec-fetch-site
+same-origin
+sec-fetch-mode
+navigate
+sec-fetch-user
+?1
+sec-fetch-dest
+ in crm there is no option to assign technician to particular customer complain                            these all tabs must be seen in admin panel only  not in tecnician panel [⚡Sadaat ElectronicsSales & Service CRM](http://127.0.0.1:8000/technician/dashboard)
+Technician Portal
+[Switch to Admin](http://127.0.0.1:8000/auth/switch-role/admin)
+Technician Hub
+[My Dashboard](http://127.0.0.1:8000/technician/dashboard)[My Assigned Jobs6](http://127.0.0.1:8000/technician/jobs)[My Performance](http://127.0.0.1:8000/technician/performance)[Assigned Customers](http://127.0.0.1:8000/technician/customers)
+Security Note
+               dont create uunecessary tabs if some info is present in Reports & Analytics then dont show same info again and again in different tabs create one report tabs of whole crm anso one expense report. in accounts tab admin manage tenchnician accounts and admin settings
+
+errors:http://127.0.0.1:8000/admin/expenses                    Symfony\Component\Routing\Exception\RouteNotFoundException
+vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:536
+Route [admin.expenses.index] not defined.
+
+LARAVEL
+12.69.2
+PHP
+8.2.12
+UNHANDLED
+CODE 0
+500
+GET
+http://127.0.0.1:8000/admin/expenses
+
+Exception trace
+2 vendor frames
+
+route(string, array)
+resources\views\admin\expenses\index.blade.php:109
+
+104    </div>
+105
+106    <!-- Filters -->
+107    <div class="flex flex-wrap gap-2 text-xs">
+108        @foreach(['all' => 'All Categories', 'parts' => 'Parts', 'salary' => 'Salary', 'utilities' => 'Utilities', 'rent' => 'Rent', 'transport' => 'Transport'] as $val => $label)
+109            <a href="{{ route('admin.expenses.index', ['category' => $val]) }}"
+110               class="px-3 py-1.5 rounded-full font-medium {{ ($currentCategory ?? 'all') === $val ? 'bg-rose-500 text-white' : 'bg-[#111c26] text-slate-400 border border-[#1f3347] hover:border-slate-500' }}">
+111                {{ $label }}
+112            </a>
+113        @endforeach
+114    </div>
+115
+116    <!-- Expenses Table -->
+117    <div class="bg-[#111c26] border border-[#1a2836] rounded-2xl overflow-hidden">
+118        <div class="overflow-x-auto">
+119            <table class="w-full text-xs">
+120                <thead class="bg-[#0d1a25] text-slate-400">
+121
+55 vendor frames
+
+Illuminate\Foundation\Application->handleRequest(object(Illuminate\Http\Request))
+public\index.php:20
+
+1 vendor frame
+
+Queries

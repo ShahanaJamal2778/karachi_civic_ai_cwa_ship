@@ -189,6 +189,149 @@ AUTHORITIES: List[Dict[str, Any]] = [
             "Street cleaning and local sanitation"
         ],
         "jurisdiction_keywords": ["town", "uc", "union committee", "gali", "mohalla", "internal road", "block street"]
+    },
+    {
+        "id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+        "name": "Sindh Building Control Authority",
+        "short_name": "SBCA",
+        "authority_type": "building_control",
+        "description": "Regulation and approval of building plans, prevention of illegal construction, and enforcement of building safety standards across Sindh.",
+        "email": "sbca@sbca.gos.pk",
+        "phone": "+92 21 99205717",
+        "functions": [
+            "Approval and regulation of building plans",
+            "Prevention and removal of illegal construction",
+            "Building safety inspections and enforcement",
+            "Floor addition and unauthorized extension control",
+            "Dangerous/dilapidated structure notices",
+            "Compounding of building violations",
+            "Registration of builders and architects"
+        ],
+        "jurisdiction_keywords": ["illegal construction", "building violation", "illegal floor", "plaza", "sbca", "unauthorized extension", "building plan", "dangerous building", "construction without noc"]
+    },
+    {
+        "id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+        "name": "Karachi Development Authority",
+        "short_name": "KDA",
+        "authority_type": "development_authority",
+        "description": "Land use planning, development of KDA housing schemes, roads within KDA jurisdiction, and maintenance of KDA-developed infrastructure.",
+        "email": "info@kda.gos.pk",
+        "phone": "+92 21 99231000",
+        "functions": [
+            "Land use planning and zoning",
+            "Development and maintenance of KDA housing schemes",
+            "Roads and infrastructure in KDA schemes",
+            "Plot allotment and transfer",
+            "Development of recreational areas and parks in KDA schemes",
+            "Regulation of land sub-division and amalgamation",
+            "Anti-encroachment in KDA land"
+        ],
+        "jurisdiction_keywords": ["kda scheme", "kda road", "gulshan-e-iqbal", "gulistan-e-jauhar", "north nazimabad", "buffer zone", "north karachi", "federal b area", "surjani", "orangi", "site", "korangi industrial"]
+    },
+    {
+        "id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+        "name": "KDA Director General Office",
+        "short_name": "KDA DG",
+        "authority_type": "development_authority",
+        "description": "Director General office of KDA — escalation point for unresolved KDA issues and major development disputes.",
+        "email": "dg@kda.gos.pk",
+        "phone": "+92 21 99231001",
+        "functions": [
+            "Escalation and oversight of KDA operations",
+            "Policy decisions on KDA land and schemes",
+            "Resolution of major development complaints",
+            "Coordination with federal and provincial agencies"
+        ],
+        "jurisdiction_keywords": ["kda dg", "kda director general", "kda escalation"]
+    },
+    {
+        "id": "dddddddd-dddd-dddd-dddd-dddddddddddd",
+        "name": "DHA Karachi",
+        "short_name": "DHA",
+        "authority_type": "cantonment",
+        "description": "Municipal and civic services within DHA Karachi phases — roads, water, sanitation, parks, and community facilities.",
+        "email": "dha@dhakarachi.org",
+        "phone": "+92 21 35160101",
+        "functions": [
+            "Roads and infrastructure within DHA phases",
+            "Water supply and sewerage services",
+            "Sanitation and solid waste management",
+            "Parks, community centres and recreational facilities",
+            "Building control within DHA",
+            "Security and community management",
+            "Service billing and resident complaints"
+        ],
+        "jurisdiction_keywords": ["dha phase", "dha karachi", "defence housing", "dha city", "khayaban", "sehar", "sunset", "shahbaz"]
+    },
+    {
+        "id": "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+        "name": "Commissioner Karachi",
+        "short_name": "Commissioner",
+        "authority_type": "coordination",
+        "description": "Senior administrative coordination and escalation office for cross-agency civic issues across Karachi Division.",
+        "email": "office@commissionerkarachi.gos.pk",
+        "phone": "+92 21 99214000",
+        "functions": [
+            "Coordination between municipal agencies",
+            "Escalation of unresolved inter-agency complaints",
+            "Administrative oversight of Karachi Division",
+            "Disaster response coordination",
+            "Land and revenue administration oversight"
+        ],
+        "jurisdiction_keywords": ["commissioner karachi", "division level", "escalation", "cross-agency"]
+    },
+    {
+        "id": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+        "name": "Commissioner Karachi Complaints Cell",
+        "short_name": "CK Complaints",
+        "authority_type": "coordination",
+        "description": "Dedicated citizen complaints cell under the Commissioner Karachi — escalation for unresolved civic complaints.",
+        "email": "ckcomplains@commissionerkarachi.gos.pk",
+        "phone": "+92 21 99214001",
+        "functions": [
+            "Receiving and processing citizen complaints",
+            "Escalation of unresolved agency complaints",
+            "Coordination with relevant departments for complaint resolution",
+            "Follow-up and status updates on complaints"
+        ],
+        "jurisdiction_keywords": ["commissioner complaints", "civic escalation", "unresolved complaint"]
+    },
+    {
+        "id": "11111111-2222-3333-4444-555555555555",
+        "name": "K-Electric",
+        "short_name": "KE",
+        "authority_type": "utility",
+        "description": "Electricity supply, billing, load-shedding, technical faults, dangerous wires, and transformer/meter issues across Karachi.",
+        "email": "customer.care@ke.com.pk",
+        "phone": "118",
+        "functions": [
+            "Electricity supply and distribution",
+            "Billing complaints and disputes",
+            "Power outage and load-shedding reporting",
+            "Dangerous hanging or fallen wires",
+            "Transformer faults and replacements",
+            "Meter tampering and faulty meter complaints",
+            "New connection requests",
+            "Streetlight (KE-operated) maintenance"
+        ],
+        "jurisdiction_keywords": ["bijli", "electricity", "light gai", "current nahi", "transformer", "meter", "wire gira", "k-electric", "ke", "load shedding", "power outage", "voltage", "sparking wire"]
+    },
+    {
+        "id": "11111111-2222-3333-4444-666666666666",
+        "name": "Sindh Police",
+        "short_name": "Police",
+        "authority_type": "law_enforcement",
+        "description": "Law enforcement, emergency response, and public safety across Sindh. Dial 15 for emergency.",
+        "email": None,  # Contact varies by unit; 15 is the primary emergency number
+        "phone": "15",
+        "functions": [
+            "Emergency response and public safety",
+            "Crime prevention and investigation",
+            "Traffic management and violations",
+            "Noise and nuisance complaints",
+            "Public order and law enforcement"
+        ],
+        "jurisdiction_keywords": ["police", "crime", "theft", "robbery", "emergency", "law enforcement", "chor", "dakaiti", "traffic violation", "accident", "fight", "harassment"]
     }
 ]
 

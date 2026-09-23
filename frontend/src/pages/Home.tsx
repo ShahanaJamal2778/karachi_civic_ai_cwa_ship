@@ -4,25 +4,50 @@ import { useTranslation } from 'react-i18next';
 import {
   Camera,
   Mic,
-  FileText,
+  PenLine,
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
   Building2,
   Sparkles,
   MapPin,
-  Send
+  Send,
+  ScanText,
+  GitBranch,
+  Search,
+  Mail,
+  Info,
+  Droplets,
+  Truck,
+  Landmark,
+  Shield,
+  House,
+  HardHat,
+  LayoutGrid,
+  ChevronsUp,
+  Home as HomeIcon,
+  MessageSquareWarning,
+  Zap,
+  Siren
 } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const { t } = useTranslation();
 
   const authoritiesList = [
-    { name: 'KWSB / KWSC', desc: 'Water supply & sewerage blockages', icon: '🚰' },
-    { name: 'SSWMB', desc: 'Garbage & municipal solid waste', icon: '🚛' },
-    { name: 'KMC', desc: 'Main roads, bridges, storm drains, major parks', icon: '🏛️' },
-    { name: 'Cantonment Boards', desc: 'Clifton (CBC), Korangi, Faisal, Malir, Manora', icon: '🎖️' },
-    { name: 'Town Administration', desc: 'Neighborhood streets, potholes & streetlights', icon: '🏘️' }
+    { name: 'KWSB / KWSC',           desc: 'Water supply & sewerage blockages',              Icon: Droplets },
+    { name: 'SSWMB',                 desc: 'Garbage & municipal solid waste',                 Icon: Truck },
+    { name: 'KMC',                   desc: 'Main roads, bridges, storm drains, major parks',  Icon: Landmark },
+    { name: 'Cantonment Boards',     desc: 'Clifton (CBC), Korangi, Faisal, Malir, Manora',  Icon: Shield },
+    { name: 'Town Administration',   desc: 'Neighbourhood streets, potholes & streetlights', Icon: House },
+    { name: 'SBCA',                  desc: 'Illegal construction & building-control',          Icon: HardHat },
+    { name: 'KDA',                   desc: 'Land, development & KDA schemes',                 Icon: LayoutGrid },
+    { name: 'KDA DG Office',         desc: 'Director General / escalation',                   Icon: ChevronsUp },
+    { name: 'DHA Karachi',           desc: 'DHA municipal & service matters',                 Icon: HomeIcon },
+    { name: 'Commissioner Karachi',  desc: 'Cross-agency coordination & escalation',          Icon: Building2 },
+    { name: 'CK Complaints Cell',    desc: 'Citizen complaint escalation',                    Icon: MessageSquareWarning },
+    { name: 'K-Electric',            desc: 'Electricity, billing & technical faults',          Icon: Zap },
+    { name: 'Sindh Police',          desc: 'Police & emergency complaints (dial 15)',          Icon: Siren },
   ];
 
   return (
@@ -56,8 +81,9 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        <p className="text-xs text-gray-500 font-medium">
-          ℹ️ {t('brand.hint')}
+        <p className="text-xs text-gray-500 font-medium flex items-center justify-center gap-1.5">
+          <Info className="w-3.5 h-3.5 flex-shrink-0" />
+          {t('brand.hint')}
         </p>
       </section>
 
@@ -112,7 +138,7 @@ export const Home: React.FC = () => {
             className="civic-card p-6 text-center space-y-4 hover:border-[#006600] group"
           >
             <div className="w-14 h-14 mx-auto rounded-2xl bg-[#E8F5E9] text-[#006600] flex items-center justify-center group-hover:scale-110 transition-transform">
-              <FileText className="w-7 h-7" />
+              <PenLine className="w-7 h-7" />
             </div>
             <div className="space-y-1">
               <h3 className="font-bold text-lg text-[#1F2937] group-hover:text-[#006600] transition-colors">
@@ -142,23 +168,36 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1 shadow-sm">
-              <span className="text-lg">📷 🎙️ ✍️</span>
+            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1.5 shadow-sm">
+              <div className="flex items-center justify-center gap-1.5 text-[#006600]">
+                <Camera className="w-4 h-4" strokeWidth={1.75} />
+                <Mic className="w-4 h-4" strokeWidth={1.75} />
+                <PenLine className="w-4 h-4" strokeWidth={1.75} />
+              </div>
               <h5 className="font-bold text-xs text-[#1F2937]">1. INPUT</h5>
               <p className="text-[11px] text-gray-500">Photo, voice, or text in Roman Urdu</p>
             </div>
-            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1 shadow-sm">
-              <span className="text-lg">🧠 📍</span>
+            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1.5 shadow-sm">
+              <div className="flex items-center justify-center gap-1.5 text-[#006600]">
+                <ScanText className="w-4 h-4" strokeWidth={1.75} />
+                <MapPin className="w-4 h-4" strokeWidth={1.75} />
+              </div>
               <h5 className="font-bold text-xs text-[#1F2937]">2. UNDERSTAND & LOCATE</h5>
               <p className="text-[11px] text-gray-500">EXIF, GPS, or extracted Karachi zone</p>
             </div>
-            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1 shadow-sm">
-              <span className="text-lg">🏛️ 🔎</span>
+            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1.5 shadow-sm">
+              <div className="flex items-center justify-center gap-1.5 text-[#006600]">
+                <GitBranch className="w-4 h-4" strokeWidth={1.75} />
+                <Search className="w-4 h-4" strokeWidth={1.75} />
+              </div>
               <h5 className="font-bold text-xs text-[#1F2937]">3. ROUTE & DEDUPLICATE</h5>
               <p className="text-[11px] text-gray-500">KWSB, SSWMB, KMC, or Cantonment</p>
             </div>
-            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1 shadow-sm">
-              <span className="text-lg">📧 📊</span>
+            <div className="p-3 bg-white rounded-lg border border-gray-200 space-y-1.5 shadow-sm">
+              <div className="flex items-center justify-center gap-1.5 text-[#006600]">
+                <Mail className="w-4 h-4" strokeWidth={1.75} />
+                <Send className="w-4 h-4" strokeWidth={1.75} />
+              </div>
               <h5 className="font-bold text-xs text-[#1F2937]">4. GENERATE & SEND</h5>
               <p className="text-[11px] text-gray-500">Official English email sent automatically</p>
             </div>
@@ -180,7 +219,9 @@ export const Home: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {authoritiesList.map((a, i) => (
             <div key={i} className="civic-card p-4 flex items-start gap-3 bg-white">
-              <span className="text-2xl">{a.icon}</span>
+              <div className="w-8 h-8 flex-shrink-0 rounded-lg bg-[#E8F5E9] flex items-center justify-center text-[#006600]">
+                <a.Icon className="w-4 h-4" strokeWidth={1.75} />
+              </div>
               <div>
                 <h4 className="font-bold text-xs text-[#1F2937]">{a.name}</h4>
                 <p className="text-[11px] text-gray-500 mt-0.5">{a.desc}</p>

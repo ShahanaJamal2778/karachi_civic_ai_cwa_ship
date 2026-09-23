@@ -1,0 +1,1265 @@
+You are a senior Laravel + PHP + Blade/Tailwind/JavaScript engineer.
+
+I am building a real production CRM for:
+
+SADAAT ELECTRONICS
+
+Business structure:
+1. Sadaat Electronics — direct retail customers
+2. A.K. Traders — wholesale/dealer business
+
+The client is non-technical, so the system must be simple, reliable, and operationally clear.
+
+IMPORTANT:
+Do not build a demo/mockup only.
+Build the actual Laravel application structure with reusable Blade components, routes, controllers, forms, validation, authentication, authorization, database-ready models/repositories, and production-ready UI.
+
+TECH STACK
+
+- PHP
+- Laravel
+- MySQL
+- Blade
+- Tailwind CSS
+- JavaScript
+- Laravel authentication
+- Laravel policies/middleware for permissions
+- Laravel migrations
+- Laravel Notifications/Jobs where appropriate
+- DomPDF or another Laravel-compatible PDF package for PDF generation
+- WhatsApp integration will be implemented in Phase 3
+
+Do NOT introduce unnecessary React/Vue/Next.js.
+Keep the frontend Laravel Blade based unless an existing project already requires another frontend.
+
+==================================================
+1. DESIGN REFERENCE
+==================================================
+
+The client provided CRM screenshots showing a dark modern CRM interface.
+
+Use the attached screenshots as visual inspiration.
+
+Design characteristics:
+
+- Dark navy/charcoal background
+- Teal/cyan primary accent
+- Green for positive/profit/completed
+- Red/orange for warnings/outstanding/high priority
+- Left sidebar navigation
+- Top bar
+- Cards with rounded corners
+- Data tables
+- Status badges
+- KPI cards
+- Charts
+- Search/filter controls
+- Responsive layout
+- Professional business software appearance
+- High readability
+- Avoid excessive animations
+
+The interface should feel like professional business software, not a marketing website.
+
+Brand:
+
+SADAAT ELECTRONICS
+
+Use the provided Sadaat Electronics logo/assets where available.
+
+==================================================
+2. ONLY TWO USER ROLES
+==================================================
+
+There are ONLY:
+
+1. Admin
+2. Technician
+
+Do not create Manager, Accountant, Salesperson, Customer or other application login roles.
+
+Admin:
+- Full CRM access
+- Manage customers
+- Manage technicians
+- Create complaints
+- Assign complaints
+- View all complaints
+- Edit complaints
+- Verify technician completion
+- Manage service invoices
+- Record payments
+- Manage products
+- Manage sales
+- Manage wholesale invoices
+- Manage expenses
+- View accounts
+- View reports
+- Generate PDFs
+- Manage WhatsApp settings
+- Approve technician completion before customer feedback is sent
+
+Technician:
+- Login
+- See ONLY complaints/jobs assigned to that technician
+- Cannot view other technicians' complaints
+- Cannot change assignment
+- Cannot access admin management modules
+- Can update their own assigned jobs
+- Can update job status
+- Can record parts used
+- Can record cash received from customer
+- Can enter repair notes
+- Can mark their assigned job as Completed
+- Completion must then go to Admin verification
+- Technician cannot officially close a complaint
+- Technician cannot approve the final complaint closure
+- Technician can access relevant customer/job information needed to perform the service
+
+Security requirement:
+Never rely only on hiding menu items.
+Enforce technician restrictions at route/controller/policy/query level.
+
+A technician must never be able to manually change a URL and access another technician's complaint.
+
+==================================================
+3. AUTHENTICATION
+==================================================
+
+Create:
+
+/login
+
+Login fields:
+- Username/email
+- Password
+- Remember me
+
+Registration/signup should support choosing:
+
+- Admin
+- Technician
+
+However, prevent unauthorized public registration from creating Admin accounts in production.
+
+Prefer:
+- Admin can create technician accounts.
+- Initial setup can create the first Admin.
+- If a signup screen is required, Admin signup should be protected/configurable.
+
+After login:
+
+Admin → Admin dashboard
+
+Technician → Technician dashboard
+
+==================================================
+4. MAIN SIDEBAR
+==================================================
+
+Admin sidebar:
+
+Dashboard
+Customers
+Complaints
+Service Invoices
+Technicians
+Sales
+A.K. Traders
+Products
+Inventory
+Expenses
+Accounts
+Reports
+WhatsApp Settings
+
+Technician sidebar:
+
+Dashboard
+My Complaints
+My Completed Jobs
+My Performance
+Customers relevant to assigned jobs
+
+Do not show admin-only navigation to technicians.
+
+==================================================
+5. ADMIN DASHBOARD
+==================================================
+
+Create a professional dashboard inspired by the supplied CRM screenshot.
+
+Show:
+
+Today's:
+- Sales
+- Complaints
+- Open complaints
+- Completed complaints
+- Service revenue
+- Payments received
+
+Monthly:
+- Product sales
+- Service revenue
+- Expenses
+- Net profit
+- Customer outstanding
+- Supplier/payable amount if available
+
+Complaint pipeline:
+
+New
+Assigned
+In Progress
+Waiting Parts
+Completed
+Closed
+
+Each status should be clickable/filterable.
+
+Show:
+
+- Latest complaints
+- Latest sales
+- Outstanding customers
+- Low stock
+- Technician performance
+- Monthly revenue/profit chart
+- Service revenue chart
+
+Date selector:
+
+- Current month
+- Last 6 months
+- Custom date range where appropriate
+
+==================================================
+6. TECHNICIAN DASHBOARD
+==================================================
+
+Technician sees only his/her own information.
+
+Show:
+
+- Assigned jobs
+- New assigned jobs
+- In progress
+- Waiting parts
+- Completed awaiting admin verification
+- Closed jobs
+- Today's visits
+- Monthly jobs
+- Monthly service revenue
+- Parts used
+- Cash received
+- Performance summary
+
+Never display another technician's jobs.
+
+==================================================
+7. CUSTOMER MODULE
+==================================================
+
+Create:
+
+/customers
+
+Features:
+
+- Search
+- Filter
+- Add customer
+- Edit customer
+- View customer
+- Customer history
+
+Customer fields:
+
+Customer ID
+Name
+Mobile number
+WhatsApp number
+Address
+Area
+City
+Email
+Customer Type
+
+Customer types:
+
+Retail
+Wholesale
+Corporate
+
+Customer profile should show:
+
+Customer information
+Sales history
+Complaints
+Service history
+Service invoices
+Payments
+Outstanding balance
+Products purchased
+Last service
+Last purchase
+Total purchase value
+Total service value
+
+Add:
+
+"WhatsApp" button
+
+It should open WhatsApp using the customer's WhatsApp number.
+
+Prevent deletion if customer has:
+
+- sales
+- complaints
+- service invoices
+- payments
+
+Instead use soft deletion/archive if necessary.
+
+==================================================
+8. COMPLAINT MODULE
+==================================================
+
+Create:
+
+/complaints
+
+Admin sees all complaints.
+
+Technician sees ONLY assigned complaints.
+
+Complaint fields:
+
+Complaint number
+Complaint date
+Customer
+Product category
+Brand
+Model
+Serial number
+Complaint details
+Priority
+Assigned technician
+Visit date
+Completion date
+Status
+Repair notes
+
+Priority:
+
+Low
+Normal
+High
+Urgent
+
+Status:
+
+New
+Assigned
+In Progress
+Waiting Parts
+Completed
+Closed
+
+Rules:
+
+New → no technician required
+
+Assigned → technician required
+
+In Progress → technician required
+
+Waiting Parts → technician required
+
+Completed → technician required
+
+Closed → Admin only
+
+A complaint cannot move beyond New unless a technician is assigned.
+
+==================================================
+9. TECHNICIAN JOB UPDATE
+==================================================
+
+When technician opens his assigned complaint, show:
+
+Customer
+Phone
+WhatsApp
+Address
+Product
+Brand
+Model
+Serial number
+Complaint
+Priority
+Visit date
+
+Technician can:
+
+Change status
+Add repair notes
+Add parts used
+Record quantity
+Record part cost
+Record cash received
+Add completion notes
+Mark job Completed
+
+Technician cannot:
+
+Change customer
+Change assigned technician
+Delete complaint
+Close complaint
+Approve his own completion
+
+When technician selects Completed:
+
+System records completion date.
+
+Status becomes:
+
+Completed — Awaiting Admin Verification
+
+Admin must then verify.
+
+==================================================
+10. ADMIN VERIFICATION WORKFLOW
+==================================================
+
+Implement this exact workflow:
+
+Technician:
+
+Completed
+↓
+Parts used
+↓
+Cash received
+↓
+Completion notes
+↓
+Submit for verification
+
+Admin:
+
+Review technician submission
+↓
+Verify/edit details if necessary
+↓
+Approve
+↓
+Create/confirm service invoice/payment
+↓
+Complaint officially Closed
+
+Only after Admin approval should the WhatsApp feedback message be sent.
+
+Do not automatically send feedback merely because technician selected Completed.
+
+==================================================
+11. PARTS USED
+==================================================
+
+Technician can add multiple parts.
+
+Fields:
+
+Part/product
+Quantity
+Unit cost
+Selling price if applicable
+Notes
+
+Calculate:
+
+Total parts cost
+Total parts charge
+
+Parts must be connected to the service complaint/service invoice.
+
+==================================================
+12. CASH RECEIVED
+==================================================
+
+Technician can record:
+
+Cash received
+Payment method
+Payment notes
+Date/time
+
+Payment methods:
+
+Cash
+Bank
+Other
+
+Important:
+
+Technician's cash entry is NOT automatically treated as final verified accounting.
+
+It must be visible to Admin for verification.
+
+==================================================
+13. SERVICE INVOICE
+==================================================
+
+Create:
+
+/service-invoices
+
+Invoice fields:
+
+Invoice number
+Complaint
+Customer
+Date
+Visiting charges
+Labour charges
+Parts charges
+Discount
+Total
+Paid
+Balance
+Payment status
+
+Payment status:
+
+Unpaid
+Partially Paid
+Paid
+
+Show:
+
+Subtotal
+Discount
+Total
+Paid
+Outstanding
+
+A fully paid service invoice can allow the complaint to become Closed after Admin verification.
+
+Provide:
+
+Print
+Generate PDF
+Send through WhatsApp
+
+WhatsApp sending itself will be implemented in Phase 3.
+
+==================================================
+14. CUSTOMER FOLLOW-UP REPORT
+==================================================
+
+Create:
+
+Reports → Customer Follow-up
+
+Filters:
+
+Last 30 days
+Last 3 months
+3–6 months
+Custom date
+
+Required columns:
+
+Delivery Date
+Customer
+Phone
+Product
+Invoice
+Sale Amount
+Product Cost
+Profit
+Payment Status
+Warranty
+Last Service
+
+The report must be based on actual database data.
+
+Admin should be able to search/filter/export.
+
+==================================================
+15. PRODUCT COST / PROFIT
+==================================================
+
+Every product should support:
+
+Selling price
+Purchase cost
+
+This allows:
+
+Profit = Sale Amount - Actual Product Cost
+
+Do NOT hardcode profit.
+
+For products purchased at different costs, structure the database so future inventory costing can be implemented.
+
+At minimum, maintain actual purchase cost per inventory/purchase record and use the configured costing method consistently.
+
+==================================================
+16. SALES
+==================================================
+
+Support Sadaat Electronics retail sales.
+
+Sales fields should support:
+
+Invoice number
+Date
+Customer
+Products
+Quantity
+Unit price
+Discount
+Delivery charges
+Total
+Payment received
+Balance
+Payment status
+
+Each sale should connect to:
+
+Customer
+Products
+Payments
+
+==================================================
+17. A.K. TRADERS WHOLESALE
+==================================================
+
+Create a dedicated:
+
+A.K. Traders
+
+module.
+
+Admin can create wholesale invoices.
+
+Required fields:
+
+Invoice number
+Date
+Dealer/customer
+Item code
+Description
+Quantity
+Rate
+Discount
+Amount
+Total
+Prepared By
+Approved By
+
+The system must generate a PDF based on the client's real hard-copy A.K. Traders invoice design.
+
+The hard-copy image supplied by the client should be used as the visual reference.
+
+Do not invent a completely different invoice design.
+
+Use the actual logo and layout assets supplied/cropped by the developer.
+
+==================================================
+18. SADAAT ELECTRONICS SALES SLIP
+==================================================
+
+Create a Sadaat Electronics sales invoice/slip generator.
+
+Fields:
+
+Date
+Invoice number
+Customer name
+Address
+Quantity
+Description
+Amount
+Delivery charges
+Total
+
+Business information:
+
+SADAAT ELECTRONICS
+
+Deals in all types of:
+Air conditioners
+Washing machines
+Refrigerators
+Cooking ranges
+Ovens
+Hobs
+Range hoods
+Microwaves
+Built-in ovens
+Air conditioning & home appliances
+
+Shop # 5-10, Marium Centre,
+Magazine Line, Off A.H Road,
+Saddar, Karachi
+
+Website:
+www.sadaatelectronics.com
+
+Email:
+sadaatelectronics@gmail.com
+
+Telephone numbers should be configurable in settings rather than hardcoded throughout the application.
+
+Generate printable PDF.
+
+==================================================
+19. COMPLAINT PDF
+==================================================
+
+Generate a blank complaint/service slip PDF based on the client's supplied hard-copy complaint slip.
+
+Fields include:
+
+Complaint No.
+Date
+Name
+Telephone
+Cell No.
+Address
+Nature of Complaint
+Product
+Model #
+D.O.P.
+Repairing Detail
+Technician
+Date
+Time
+Customer Comments
+Visiting Charges
+Normal Repair Charges
+Cost of Parts
+Installation Charges
+Total Amount
+Customer Signature
+Comments
+
+At the bottom include the requested General Tec and Kenwood logos/assets supplied by the developer.
+
+The PDF must be printable and resemble the supplied physical form.
+
+==================================================
+20. OCR WORKFLOW
+==================================================
+
+Admin will receive completed physical complaint slips from technicians.
+
+Admin can:
+
+Upload scanned PDF/image
+↓
+OCR extracts fields
+↓
+Show extracted values in editable verification form
+↓
+Admin verifies/corrects
+↓
+Save complaint
+↓
+Create database record
+
+Do not automatically trust OCR results.
+
+Always show a verification screen before saving.
+
+Prepare the frontend/API architecture for OCR integration.
+
+OCR provider can be configured later.
+
+==================================================
+21. WEBSITE COMPLAINTS
+==================================================
+
+The public Sadaat Electronics website:
+
+https://www.sadaatelectronics.pk
+
+can submit complaint forms.
+
+Expected fields include:
+
+Name
+Contact number
+Email
+City
+Full address
+Problem description
+
+Example:
+
+Name: Saad Arshad
+Contact: +923452404851
+Email: adeelaaftab74@gmail.com
+City: Karachi
+Address: House no. R-18, Gulshan e Shamim, Phase III, F.B Area, Block 8, Yaseenabad
+Problem: Kitchen hood makes noise and not running on full capacity.
+
+Prepare a secure API endpoint for website complaint submission.
+
+Example:
+
+POST /api/public/complaints
+
+Validate and sanitize all incoming fields.
+
+Do not allow public users to specify:
+
+- assigned technician
+- internal status
+- internal costs
+- admin fields
+
+New website complaints should enter CRM as:
+
+New
+
+==================================================
+22. WHATSAPP COMPLAINT ARCHITECTURE
+==================================================
+
+Customers may also send unstructured complaints through WhatsApp.
+
+Do NOT immediately create a formal complaint from every WhatsApp message.
+
+Preferred workflow:
+
+Customer WhatsApp message
+↓
+WhatsApp Inbox
+↓
+Admin reviews message
+↓
+Admin clicks "Create Complaint"
+↓
+CRM pre-fills customer/message information
+↓
+Admin verifies missing information
+↓
+Save complaint
+
+This reduces false complaints and accidental database records.
+
+Prepare the frontend for:
+
+WhatsApp Inbox
+Conversation list
+Message view
+Customer identification
+"Create Complaint" button
+
+Actual WhatsApp API implementation will be Phase 3.
+
+==================================================
+23. EXPENSES
+==================================================
+
+Admin can manage:
+
+Rent
+Electricity
+Marketing
+Fuel
+Transport
+Internet
+Salaries
+Office Expenses
+Other
+
+Each expense:
+
+Date
+Category
+Description
+Amount
+Paid from
+Notes
+
+Dashboard/report calculations should use actual expenses.
+
+==================================================
+24. ACCOUNTS
+==================================================
+
+Create Accounts section.
+
+Tabs:
+
+Cash Book
+Bank Book
+Receivables
+Payables
+Service Profit
+Sales Profit
+
+Cash book should support:
+
+Opening balance
+Cash in
+Cash out
+Running balance
+
+Entries can come from:
+
+Sales
+Service invoices
+Payments
+Expenses
+Cash deposits
+Other transactions
+
+==================================================
+25. REPORTS
+==================================================
+
+Create:
+
+Category Reports
+Sales Reports
+Service Reports
+Technician Performance
+Customer Follow-up
+Profit Reports
+Outstanding Reports
+Expense Reports
+
+Technician performance:
+
+Jobs assigned
+Jobs completed
+Revenue generated
+Parts cost
+Labour cost
+Net profit
+
+Use actual database calculations.
+
+Do not rank technicians based on fake/sample values.
+
+==================================================
+26. RESPONSIVE DESIGN
+==================================================
+
+Desktop-first because this is business software.
+
+But make:
+
+Tables horizontally scrollable
+Forms responsive
+Cards responsive
+Sidebar collapsible on tablet/mobile
+Buttons usable on mobile
+
+Technician job screens should be particularly mobile-friendly because technicians may use phones while visiting customers.
+
+==================================================
+27. VALIDATION AND UX
+==================================================
+
+Every form must have:
+
+Validation
+Error messages
+Success messages
+Confirmation dialogs for destructive actions
+Loading states
+Empty states
+Search
+Pagination where needed
+
+Use soft deletes where appropriate.
+
+Never silently delete financial records.
+
+==================================================
+28. CODE QUALITY
+==================================================
+
+Use:
+
+- Controllers
+- Form Requests
+- Policies
+- Middleware
+- Services for business logic
+- Eloquent relationships
+- Blade components
+- Reusable tables/forms/modals
+- Transactions for financial operations
+- Server-side validation
+- CSRF protection
+- Authorization checks
+
+Avoid giant controllers.
+
+Do not put all business logic into Blade views.
+
+==================================================
+29. IMPORTANT DEVELOPMENT ORDER
+==================================================
+
+First inspect the existing Laravel project.
+
+Do NOT destroy existing work.
+
+Then implement:
+
+1. Layout
+2. Authentication
+3. Role authorization
+4. Admin dashboard
+5. Technician dashboard
+6. Customers
+7. Complaints
+8. Technician workflow
+9. Service invoices
+10. Sales
+11. A.K. Traders
+12. PDFs
+13. Expenses
+14. Accounts
+15. Reports
+16. OCR upload UI
+17. Public complaint API
+18. WhatsApp inbox UI placeholder
+
+Use database relationships that will be implemented in Phase 2.
+
+==================================================
+30. DO NOT
+==================================================
+
+Do not create extra roles.
+
+Do not allow technicians to see all complaints.
+
+Do not allow technicians to close complaints.
+
+Do not send feedback automatically before Admin approval.
+
+Do not hardcode profits.
+
+Do not hardcode customer balances.
+
+Do not create fake WhatsApp functionality.
+
+Do not expose WhatsApp API credentials in frontend JavaScript.
+
+Do not use fake static dashboard numbers once database integration exists.
+
+Do not delete financial history.
+
+==================================================
+
+FINAL OUTPUT
+
+Build the Laravel frontend/application structure now.
+
+At the end provide:
+
+1. Files created
+2. Files modified
+3. Routes created
+4. Controllers created
+5. Models expected
+6. Policies/middleware created
+7. Blade views created
+8. Packages required
+9. Environment variables required
+10. Database tables expected from Phase 2
+11. Any unresolved assumptions
+
+Do not move to WhatsApp API implementation yet.
+
+
+
+
+
+
+
+
+
+
+# Implementation Plan - Sadaat Electronics & A.K. Traders CRM
+
+Building a production-ready Laravel + Blade/Tailwind CRM for **SADAAT ELECTRONICS** (retail sales & appliance service) and **A.K. TRADERS** (wholesale/dealer business), featuring a dark modern aesthetic inspired by the provided CRM reference screenshots.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Key Architecture & Security Constraints Enforced:**
+> 1. **Strictly 2 Roles Only**: `Admin` and `Technician`. No extraneous roles.
+> 2. **Technician Isolation**: Technicians cannot access admin management screens, cannot view or modify other technicians' jobs, cannot assign technicians, and cannot close complaints. All restricted queries are scoped at the policy/repository/controller query level, preventing URL manipulation.
+> 3. **Verification Workflow**: When a technician completes a job, records parts, and logs cash received, the complaint status becomes `Completed — Awaiting Admin Verification`. Admin must explicitly review and verify before the complaint can be closed and before customer feedback messages can be dispatched.
+> 4. **Accounting & Pricing Integrity**: Profits are calculated dynamically (`Profit = Sale Amount - Actual Purchase Cost`). Cash recorded by technicians is flagged as unverified until verified by Admin.
+> 5. **Public API Sanitization**: `POST /api/public/complaints` strictly excludes internal fields (technician assignment, priority override, internal costs, status override).
+
+## Proposed Architecture & Design System
+
+### 1. Visual Design & Theme Matching Reference Screenshots
+- **Color Palette**:
+  - Background: Dark Navy/Charcoal `#0B131B` (base), `#111C26` (surface/cards), `#1A2836` (borders/inputs)
+  - Primary Accent: Bright Cyan/Teal `#06B6D4` / `#14B8A6` / `#2DD4BF`
+  - Success/Profit: Emerald Green `#10B981` / `#22C55E`
+  - Warnings/Pending: Amber/Orange `#F59E0B` / `#FB923C`
+  - High Priority/Danger: Coral/Red `#EF4444` / `#F87171`
+  - Text: High contrast `#F1F5F9` (primary), `#94A3B8` (secondary), `#64748B` (muted)
+- **Typography & Components**:
+  - Reusable Blade components for Metric/KPI cards, Data tables with sorting/filters, Status pills, Form inputs, Action buttons, Tabs, and Modal dialogs.
+  - Collapsible sidebar for responsive tablet/mobile view. Mobile-optimized technician job screen.
+
+### 2. Database Schema & Models
+- **`users`**: `name`, `username`, `email`, `password`, `role` (`admin` or `technician`), `phone`, `specialty`, `is_active`, `remember_token`.
+- **`customers`**: `customer_code`, `name`, `mobile_number`, `whatsapp_number`, `address`, `area`, `city`, `email`, `customer_type` (`retail`, `wholesale`, `corporate`), `notes`, `deleted_at`.
+- **`products`**: `code`, `name`, `category` (Air Conditioner, Refrigerator, Washing Machine, LED TV, Hood, Hob, Built-in Oven, Microwave, Cooking Range, Dishwasher, Spare Part), `brand`, `model`, `purchase_cost`, `selling_price`, `stock_quantity`, `min_stock`, `description`, `is_active`.
+- **`complaints`**: `complaint_number` (CMP-XXXX), `customer_id`, `product_category`, `brand`, `model`, `serial_number`, `complaint_details`, `priority` (`low`, `normal`, `high`, `urgent`), `status` (`new`, `assigned`, `in_progress`, `waiting_parts`, `completed_pending_verification`, `closed`), `technician_id`, `visit_date`, `completion_date`, `repair_notes`, `completion_notes`, `verified_by`, `verified_at`, `source` (`walk_in`, `call`, `website`, `whatsapp`, `ocr`), `deleted_at`.
+- **`complaint_parts`**: `complaint_id`, `product_id` (nullable), `part_name`, `quantity`, `unit_cost`, `selling_price`, `total_cost`, `total_charge`, `notes`.
+- **`complaint_cash_received`**: `complaint_id`, `technician_id`, `amount`, `payment_method` (`cash`, `bank`, `other`), `payment_notes`, `received_at`, `is_verified`, `verified_by`, `verified_at`.
+- **`service_invoices`**: `invoice_number` (SV-XXXX), `complaint_id`, `customer_id`, `date`, `visiting_charges`, `labour_charges`, `parts_charges`, `discount`, `total`, `paid`, `balance`, `payment_status` (`unpaid`, `partially_paid`, `paid`), `notes`.
+- **`sales`**: `invoice_number` (SI-XXXX), `customer_id`, `date`, `subtotal`, `discount`, `delivery_charges`, `total`, `payment_received`, `balance`, `payment_status`, `notes`.
+- **`sale_items`**: `sale_id`, `product_id`, `description`, `quantity`, `unit_cost`, `unit_price`, `total`.
+- **`wholesale_invoices`**: `invoice_number` (AK-XXXX), `dealer_customer_id`, `date`, `prepared_by`, `approved_by`, `subtotal`, `discount`, `total`, `paid`, `balance`, `payment_status`, `notes`.
+- **`wholesale_invoice_items`**: `wholesale_invoice_id`, `product_id`, `item_code`, `description`, `quantity`, `rate`, `discount`, `amount`.
+- **`expenses`**: `date`, `category` (`rent`, `electricity`, `marketing`, `fuel`, `transport`, `internet`, `salaries`, `office_expenses`, `other`), `description`, `amount`, `paid_from` (`cash`, `meezan_bank`, `hbl`, `other`), `notes`.
+- **`account_transactions`**: `date`, `account_type` (`cash_book`, `bank_book`), `reference_type`, `reference_id`, `description`, `debit`, `credit`, `balance`, `notes`.
+- **`settings`**: `key`, `value`, `group`.
+- **`whatsapp_inbox_messages`**: `from_number`, `customer_name`, `message_text`, `received_at`, `status` (`unread`, `reviewed`, `converted_to_complaint`), `complaint_id`.
+
+### 3. Middleware, Policies & Authorization
+- **Middleware**:
+  - `AdminMiddleware`: Ensures only `auth()->user()->role === 'admin'` can access admin routes.
+  - `TechnicianMiddleware`: Ensures only `auth()->user()->role === 'technician'` can access technician routes.
+- **Policies**:
+  - `ComplaintPolicy`:
+    - `view(User $user, Complaint $complaint)`: Admin can view any; Technician can only view if `$complaint->technician_id === $user->id`.
+    - `update(User $user, Complaint $complaint)`: Admin can edit everything; Technician can only edit repair notes, parts, cash, and submit for verification if assigned to them and status is not `closed`.
+    - `verify(User $user, Complaint $complaint)`: Only Admin.
+    - `delete(User $user, Complaint $complaint)`: Only Admin (prevented if related invoices exist).
+
+---
+
+## Proposed File Changes
+
+### Foundation & Design System
+#### [MODIFY] [app.css](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/resources/css/app.css)
+- Add dark theme tokens, custom scrollbars, print media styles for printable slips/invoices, table styling, and card styling.
+
+#### [NEW] [layouts/app.blade.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/resources/views/layouts/app.blade.php)
+- Responsive master layout with dark navy background, collapsible sidebar (Admin vs Technician navigation), top header with search, date filter, notifications, user profile menu, and flash message toasts.
+
+#### [NEW] Reusable Blade UI Components:
+- `resources/views/components/kpi-card.blade.php` (for dashboard & summary metrics)
+- `resources/views/components/status-badge.blade.php` (pill badges for New, Assigned, In Progress, Waiting Parts, Completed, Closed, Unpaid, Paid)
+- `resources/views/components/data-table.blade.php` (dark responsive table wrapper with search and pagination)
+- `resources/views/components/modal.blade.php` (modal dialog for add/edit/verify actions)
+- `resources/views/components/brand-logo.blade.php` (Sadaat Electronics + Generaltec / Tecnogas / Logik branding)
+
+### Authentication & Authorization
+#### [NEW] [AuthController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/AuthController.php)
+- Login (`/login`), Logout (`/logout`), and role-based redirector (`/dashboard` -> `/admin/dashboard` or `/technician/dashboard`).
+- Protected admin user creation (public registration disabled/restricted).
+
+#### [NEW] [RoleMiddleware.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Middleware/RoleMiddleware.php)
+- Enforce strict role validation (`role:admin`, `role:technician`).
+
+#### [NEW] [ComplaintPolicy.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Policies/ComplaintPolicy.php)
+- Enforce complaint ownership and action restrictions.
+
+### Controllers & Business Logic
+#### [NEW] [Admin/DashboardController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/DashboardController.php)
+- Aggregates today's and monthly sales, complaints pipeline metrics, service revenue, cash flow, low stock alerts, and technician leaderboard.
+
+#### [NEW] [Admin/CustomerController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/CustomerController.php)
+- Customer list with search/filter, Add/Edit form, detailed customer profile (360 view: sales, complaints, service history, outstanding balance, direct WhatsApp link), safe soft-delete validation.
+
+#### [NEW] [Admin/ComplaintController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ComplaintController.php)
+- Full complaints management, assignment to technicians, status updates, filter pills (`All`, `Open`, `New`, `Assigned`, `In Progress`, `Waiting Parts`, `Completed`, `Closed`), search, and complaint details.
+
+#### [NEW] [Admin/ComplaintVerificationController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ComplaintVerificationController.php)
+- Handles Admin review of technician submissions: review parts used, verify/edit cash received, approve job, generate/link service invoice, and officially mark as Closed. Prepares customer WhatsApp feedback dispatch trigger.
+
+#### [NEW] [Technician/JobController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Technician/JobController.php)
+- Technician dashboard and job workspace. Restricted to assigned jobs only. Allows status update, parts log, cash received entry, repair notes, and submission for Admin verification. Mobile-optimized view.
+
+#### [NEW] [Admin/ServiceInvoiceController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ServiceInvoiceController.php)
+- Service invoice generation, payment recording, print/PDF view, and WhatsApp sharing payload.
+
+#### [NEW] [Admin/SaleController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/SaleController.php)
+- Retail sales management for Sadaat Electronics with itemized product lines, automatic profit calculation (`sale_amount - purchase_cost`), customer ledger updates.
+
+#### [NEW] [Admin/AKTradersController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/AKTradersController.php)
+- Dedicated wholesale module for A.K. Traders with wholesale invoice creation, dealer records, and printable invoice matching hard-copy design.
+
+#### [NEW] [Admin/ProductController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ProductController.php)
+- Product master category view (matching reference screenshot), inventory stock tracking, purchase cost vs selling price management.
+
+#### [NEW] [Admin/ExpenseController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ExpenseController.php)
+- Monthly expense tracker (matching reference screenshot with category breakdown, "Where the money went" horizontal bars, and category filter pills).
+
+#### [NEW] [Admin/AccountController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/AccountController.php)
+- Multi-tab accounting (Cash book, Bank book, Receivables, Payables, Service profit, Sales profit) with real running balance.
+
+#### [NEW] [Admin/ReportController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/ReportController.php)
+- Customer Follow-up report with profit and warranty columns, Technician Performance report with real calculated revenue/profit, and export view.
+
+#### [NEW] [Admin/OCRController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/OCRController.php)
+- Physical slip scan upload UI, field extraction parser interface, and side-by-side editable verification screen.
+
+#### [NEW] [Admin/WhatsAppInboxController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Admin/WhatsAppInboxController.php)
+- WhatsApp inbox UI with message stream and "Create Complaint" pre-filled modal.
+
+#### [NEW] [Api/PublicComplaintController.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/app/Http/Controllers/Api/PublicComplaintController.php)
+- Public API endpoint `POST /api/public/complaints` with strict request validation, sanitized inputs, and automatic creation of a `New` complaint.
+
+### Printable Slips & PDF Views
+#### [NEW] [invoices/ak-traders-print.blade.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/resources/views/invoices/ak-traders-print.blade.php)
+- Hard-copy recreation of A.K. Traders wholesale invoice with header, item codes, quantity, rate, discount, prepared by, approved by, and terms.
+#### [NEW] [invoices/sadaat-sales-slip.blade.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/resources/views/invoices/sadaat-sales-slip.blade.php)
+- Sadaat Electronics retail invoice slip with Karachi address, appliance categories, customer details, itemized totals, delivery charges, and signature block.
+#### [NEW] [complaints/print-slip.blade.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/resources/views/complaints/print-slip.blade.php)
+- Service complaint slip with Generaltec, Tecnogas, Logik, Kenwood branding, visiting charges, repair details, parts breakdown, and customer signature.
+
+### Seeders & Demo Data
+#### [NEW] [DatabaseSeeder.php](file:///c:/Users/The-laptop-store/Documents/Saadat_Electronics/sadaat-crm/database/seeders/DatabaseSeeder.php)
+- Seeds initial Admin (`admin@sadaatelectronics.com`) and sample Technicians (`Ali Raza - AC Specialist`, `Ahmed Khan - Refrigeration`, `Usman Tariq - Kitchen Appliances`, `Zeeshan Akhtar - Washing Machines`).
+- Seeds realistic Karachi customers, appliance catalog with accurate purchase costs and selling prices, active complaints in various pipeline states, expenses, and cash book transactions.
+
+---
+
+## Verification Plan
+
+### Automated & Lint Verification
+1. Run `php artisan migrate:fresh --seed` to test full database migration and seed execution without errors.
+2. Run `php artisan route:list` to verify that all web and API routes are registered and correctly mapped to middleware and controllers.
+3. Validate syntax and linting with PHP CLI: `php -l` across all new controllers, models, and migrations.
+
+### Manual & Functional Verification
+1. **Authentication Flow**:
+   - Login as Admin (`admin@sadaatelectronics.com`) -> redirected to `/admin/dashboard`.
+   - Login as Technician (`aliraza@sadaatelectronics.com`) -> redirected to `/technician/dashboard`.
+2. **Technician Security Check**:
+   - As technician, verify only assigned complaints appear.
+   - Attempt to access `/admin/dashboard` or `/admin/complaints` -> verify 403 Forbidden / redirection.
+   - Attempt to access a complaint assigned to another technician -> verify 403 Forbidden.
+3. **Verification Workflow**:
+   - Technician updates job, adds parts used, records cash received, clicks "Submit for Verification".
+   - Status changes to `Completed — Awaiting Admin Verification`.
+   - Admin opens verification screen, reviews/edits cash, approves, creates service invoice, and complaint moves to `Closed`.
+4. **Public Website API**:
+   - Send `POST /api/public/complaints` with test JSON payload.
+   - Verify complaint is created with status `new` and no technician assigned.
+5. **Print & PDF Preview**:
+   - Verify A.K. Traders invoice, Sadaat Electronics sales slip, and Complaint physical slip render cleanly and trigger print preview properly.
